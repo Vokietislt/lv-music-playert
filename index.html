@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <style>
+      #directories{
+        display: flex;
+    flex-direction: column;
+      }
+      #directories a{
+          margin: 10px;
+          
+      }
+  </style>
+</head>
+
+<body>
+    <audio id ="audio" controls>
+        <source id="audioSource" src="">
+      Your browser does not support the audio element.
+      </audio>
+
+<div id="directories">
+    
+</div>
+
+   <script>
+function folder(folder=""){
+    $.ajax({ url : 'itemlist.php?directory='+folder+'/*',
+     success : function (result) 
+     { 
+         $("#directories").html(result);
+     }
+     , error : function () 
+     { alert("error"); } })
+}
+function player(url){
+     audio = document.getElementById('audio');
+     source = document.getElementById('audioSource');
+    $.ajax({ url : 'decode.php?directory='+url,
+    success : function (result) 
+     { 
+        $(source).attr('src',result)
+        audio.load(); 
+         audio.play(); 
+    }
+     , error : function () 
+     { alert("error"); } })
+}
+//pirmas paleidimas ivesti savo foldrei
+folder('music')
+
+   </script>
+   
+</body>
+</html>
